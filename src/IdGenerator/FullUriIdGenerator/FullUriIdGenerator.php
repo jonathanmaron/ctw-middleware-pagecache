@@ -1,9 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Ctw\Middleware\PageCacheMiddleware\IdGenerator;
+namespace Ctw\Middleware\PageCacheMiddleware\IdGenerator\FullUriIdGenerator;
 
 use Ctw\Middleware\PageCacheMiddleware\Exception\RuntimeException;
+use Ctw\Middleware\PageCacheMiddleware\IdGenerator\AbstractIdGenerator;
+use Ctw\Middleware\PageCacheMiddleware\IdGenerator\IdGeneratorInterface;
 
 class FullUriIdGenerator extends AbstractIdGenerator implements IdGeneratorInterface
 {

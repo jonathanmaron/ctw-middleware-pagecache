@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace CtwTest\Middleware\PageCacheMiddleware\IdGenerator;
+namespace CtwTest\Middleware\PageCacheMiddleware\IdGenerator\FullUriIdGenerator;
 
-use Ctw\Middleware\PageCacheMiddleware\IdGenerator\FullUriIdGenerator;
+use Ctw\Middleware\PageCacheMiddleware\IdGenerator\FullUriIdGenerator\FullUriIdGenerator;
 
 class FullUriIdGeneratorTest extends AbstractCase
 {

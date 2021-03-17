@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace CtwTest\Middleware\PageCacheMiddleware;
 
-use Ctw\Middleware\PageCacheMiddleware\IdGenerator\FullUriIdGenerator;
+use Ctw\Middleware\PageCacheMiddleware\IdGenerator\FullUriIdGenerator\FullUriIdGeneratorFactory;
 use Ctw\Middleware\PageCacheMiddleware\PageCacheMiddleware;
 use Ctw\Middleware\PageCacheMiddleware\PageCacheMiddlewareFactory;
 use CtwTest\Middleware\PageCacheMiddleware\TestAsset\TestHandler;
@@ -51,7 +51,7 @@ class PageCacheMiddlewareTest extends AbstractCase
         $config = [
             PageCacheMiddleware::class => [
                 'enabled'      => true,
-                'id_generator' => FullUriIdGenerator::class,
+                'id_generator' => FullUriIdGeneratorFactory::class,
                 'handlers'     => [
                     TestHandler::class,
                 ],
