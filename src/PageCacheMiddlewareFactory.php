@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Ctw\Middleware\PageCacheMiddleware;
 
-use Laminas\Cache\Storage\Adapter\Filesystem as CacheFilesystemAdapter;
 use Psr\Container\ContainerInterface;
 
 class PageCacheMiddlewareFactory
@@ -18,8 +17,19 @@ class PageCacheMiddlewareFactory
         $middleware = new PageCacheMiddleware();
 
         if (count($config) > 0) {
-            $middleware->setConfig($config);
+
+            $class = $config['id_generator'];
+            if (is_int(strpos($class, 'Factory'))) {
+                $factory     = new $class();
+                $idGenerator = $factory->__invoke($container);
+            } else {
+                $idGenerator = new $class();
+            }
+
+            $middleware->setIdGenerator($idGenerator);
             $middleware->setStorageAdapter($storageAdapter);
+            $middleware->setEnabled($config['enabled']);
+            $middleware->setHandlers($config['handlers']);
         }
 
         return $middleware;

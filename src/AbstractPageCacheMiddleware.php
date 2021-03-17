@@ -3,13 +3,12 @@ declare(strict_types=1);
 
 namespace Ctw\Middleware\PageCacheMiddleware;
 
+use Ctw\Middleware\PageCacheMiddleware\IdGenerator\IdGeneratorInterface;
 use Laminas\Cache\Storage\Adapter\AbstractAdapter as StorageAdapter;
 use Mezzio\Router\Route;
 use Mezzio\Router\RouteResult;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
-use Ctw\Middleware\PageCacheMiddleware\IdGenerator\AbstractIdGenerator;
-use Ctw\Middleware\PageCacheMiddleware\IdGenerator\IdGeneratorInterface;
 
 abstract class AbstractPageCacheMiddleware implements MiddlewareInterface
 {
@@ -17,9 +16,13 @@ abstract class AbstractPageCacheMiddleware implements MiddlewareInterface
 
     protected const STATUS_MISS = 'Miss';
 
-    private array          $config = [];
+    private StorageAdapter       $storageAdapter;
 
-    private StorageAdapter $storageAdapter;
+    private IdGeneratorInterface $idGenerator;
+
+    private bool                 $enabled;
+
+    private array                $handlers;
 
     public function getStorageAdapter(): StorageAdapter
     {
@@ -33,30 +36,45 @@ abstract class AbstractPageCacheMiddleware implements MiddlewareInterface
         return $this;
     }
 
-    public function getConfig(): array
+    public function getIdGenerator(): IdGeneratorInterface
     {
-        return $this->config;
+        return $this->idGenerator;
     }
 
-    public function setConfig(array $config): self
+    public function setIdGenerator(IdGeneratorInterface $idGenerator): self
     {
-        $this->config = $config;
+        $this->idGenerator = $idGenerator;
 
         return $this;
     }
 
-    protected function getIdGenerator(): IdGeneratorInterface
+    public function isEnabled(): bool
     {
-        $config = $this->getConfig();
+        return $this->enabled;
+    }
 
-        return new $config['id_generator'];
+    public function setEnabled(bool $enabled): self
+    {
+        $this->enabled = $enabled;
+
+        return $this;
+    }
+
+    public function getHandlers(): array
+    {
+        return $this->handlers;
+    }
+
+    public function setHandlers(array $handlers): AbstractPageCacheMiddleware
+    {
+        $this->handlers = $handlers;
+
+        return $this;
     }
 
     protected function shouldCache(ServerRequestInterface $request): bool
     {
-        $config = $this->getConfig();
-
-        if (!$config['enabled']) {
+        if (!$this->isEnabled()) {
             return false;
         }
 
@@ -72,6 +90,6 @@ abstract class AbstractPageCacheMiddleware implements MiddlewareInterface
             return false;
         }
 
-        return in_array($matchedRoute->getName(), $config['handlers']);
+        return in_array($matchedRoute->getName(), $this->getHandlers());
     }
 }
