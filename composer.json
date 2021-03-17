@@ -1,0 +1,45 @@
+{
+    "name": "ctw/ctw-middleware-page-cache",
+    "type": "library",
+    "description": "",
+    "license": "BSD-3-Clause",
+    "config": {
+        "sort-packages": true
+    },
+    "require": {
+        "php": "^7.4 || ^8.0",
+        "ctw/ctw-middleware": "^1.0",
+        "laminas/laminas-cache": "^2.10",
+        "laminas/laminas-diactoros": "^2.5",
+        "mezzio/mezzio-fastroute": "^3.1"
+    },
+    "require-dev": {
+        "laminas/laminas-servicemanager": "^3.6",
+        "phpstan/phpstan": "^0.12",
+        "phpunit/phpunit": "^9.5",
+        "squizlabs/php_codesniffer": "^3.5",
+        "symfony/var-dumper": "^5.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Ctw\\Middleware\\PageCacheMiddleware\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "CtwTest\\Middleware\\PageCacheMiddleware\\": "test"
+        }
+    },
+    "scripts": {
+        "phpcs": "vendor/bin/phpcs",
+        "phpcbf": "vendor/bin/phpcbf",
+        "phpstan": "rm -fr build/phpstan && mkdir -p build/phpstan && vendor/bin/phpstan analyse --error-format=raw --configuration=phpstan.neon | tee build/phpstan/output.txt",
+        "test": "export XDEBUG_MODE=coverage && vendor/bin/phpunit --debug",
+        "qa": [
+            "@phpcbf",
+            "@phpcs",
+            "@phpstan",
+            "@test"
+        ]
+    }
+}

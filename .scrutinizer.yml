@@ -1,0 +1,35 @@
+inherit: true
+
+checks:
+    php:
+        code_rating: true
+        duplication: true
+
+filter:
+    paths:
+        - src/*
+
+build:
+    nodes:
+        php74:
+            environment:
+                php: 7.4
+            tests:
+                override:
+                    - php-scrutinizer-run
+                    -
+                        command: composer test
+                        coverage:
+                            file: build/phpunit/clover.xml
+                            format: php-clover
+        php80:
+            environment:
+                php: 8.0
+            tests:
+                override:
+                    - php-scrutinizer-run
+                    -
+                        command: composer test
+                        coverage:
+                            file: build/phpunit/clover.xml
+                            format: php-clover
