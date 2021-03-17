@@ -22,14 +22,3 @@ build:
                         coverage:
                             file: build/phpunit/clover.xml
                             format: php-clover
-        php80:
-            environment:
-                php: 8.0
-            tests:
-                override:
-                    - php-scrutinizer-run
-                    -
-                        command: composer test
-                        coverage:
-                            file: build/phpunit/clover.xml
-                            format: php-clover
