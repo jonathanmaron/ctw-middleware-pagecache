@@ -6,7 +6,6 @@ namespace Ctw\Middleware\PageCacheMiddleware\IdGenerator\RequestUriGenerator;
 use Ctw\Middleware\PageCacheMiddleware\Exception\RuntimeException;
 use Ctw\Middleware\PageCacheMiddleware\IdGenerator\IdGeneratorInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Message\UriInterface;
 
 class RequestUriGenerator extends AbstractIdGenerator implements IdGeneratorInterface
 {

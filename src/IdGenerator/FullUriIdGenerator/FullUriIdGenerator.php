@@ -6,7 +6,6 @@ namespace Ctw\Middleware\PageCacheMiddleware\IdGenerator\FullUriIdGenerator;
 use Ctw\Middleware\PageCacheMiddleware\Exception\RuntimeException;
 use Ctw\Middleware\PageCacheMiddleware\IdGenerator\IdGeneratorInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Message\UriInterface;
 
 class FullUriIdGenerator extends AbstractIdGenerator implements IdGeneratorInterface
 {

@@ -9,7 +9,7 @@ interface IdGeneratorInterface
 {
     /**
      * Return a unique ID that represents the request
-     * 
+     *
      * @param ServerRequestInterface $request
      *
      * @return string
