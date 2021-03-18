@@ -3,9 +3,10 @@ declare(strict_types=1);
 
 namespace CtwTest\Middleware\PageCacheMiddleware;
 
-use Ctw\Middleware\PageCacheMiddleware\IdGenerator\FullUriIdGenerator\FullUriIdGeneratorFactory;
+use Ctw\Middleware\PageCacheMiddleware\IdGenerator\FullUriIdGenerator\FullUriIdGenerator;
 use Ctw\Middleware\PageCacheMiddleware\PageCacheMiddleware;
 use Ctw\Middleware\PageCacheMiddleware\PageCacheMiddlewareFactory;
+use Ctw\Middleware\PageCacheMiddleware\Strategy\RouteNameStrategy\RouteNameStrategy;
 use CtwTest\Middleware\PageCacheMiddleware\TestAsset\TestHandler;
 use Laminas\ServiceManager\ServiceManager;
 use Middlewares\Utils\Dispatcher;
@@ -51,9 +52,13 @@ class PageCacheMiddlewareTest extends AbstractCase
         $config = [
             PageCacheMiddleware::class => [
                 'enabled'      => true,
-                'id_generator' => FullUriIdGeneratorFactory::class,
-                'handlers'     => [
-                    TestHandler::class,
+                'id_generator' => FullUriIdGenerator::class,
+                'strategy'     => [
+                    RouteNameStrategy::class => [
+                        'names' => [
+                            TestHandler::NAME,
+                        ],
+                    ],
                 ],
             ],
         ];
@@ -65,6 +70,7 @@ class PageCacheMiddlewareTest extends AbstractCase
 
         return $factory->__invoke($container);
     }
+
     /*
     private function getRouteResult(): RouteResult
     {
