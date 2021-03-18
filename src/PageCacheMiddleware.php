@@ -27,8 +27,7 @@ class PageCacheMiddleware extends AbstractPageCacheMiddleware
             $response    = $handler->handle($request);
             $ttl         = (int) $cache->getOptions()->getTtl();
             $timestamp   = $ttl + time();
-            $expires     = gmdate('D, d M Y H:i:s', $timestamp) . ' GMT';
-            $response    = $response->withHeader('Expires', $expires);
+            $response    = $response->withHeader('Expires', $this->getExpires($timestamp));
             $serialized  = ResponseSerializer::toArray($response);
             $cache->setItem($cacheId, $serialized);
         } else {
@@ -39,5 +38,10 @@ class PageCacheMiddleware extends AbstractPageCacheMiddleware
         $response = $response->withHeader('X-Page-Cache', $cacheStatus);
 
         return $response;
+    }
+
+    private function getExpires(int $timestamp): string
+    {
+        return sprintf('%s GMT', gmdate('D, d M Y H:i:s', $timestamp));
     }
 }

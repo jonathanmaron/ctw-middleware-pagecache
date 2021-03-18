@@ -11,7 +11,9 @@ class RouteNameStrategyFactory
     public function __invoke(ContainerInterface $container): RouteNameStrategy
     {
         $config = $container->get('config');
-        $config = $config[PageCacheMiddleware::class]['strategy'][RouteNameStrategy::class];
+        $config = $config[PageCacheMiddleware::class];
+        $config = $config['strategy'];
+        $config = $config[RouteNameStrategy::class];
 
         $strategy = new RouteNameStrategy();
         $strategy->setConfig($config);
