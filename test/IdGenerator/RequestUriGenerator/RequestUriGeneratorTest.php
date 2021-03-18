@@ -14,8 +14,7 @@ class RequestUriGeneratorTest extends AbstractCase
         $idGenerator = new RequestUriGenerator();
 
         $expected = '60950c02cc9958a16a00a7b3fceba7398597b5dec94d29357fb2ab7c9c939496';
-        $actual   = $idGenerator->generate();
 
-        $this->assertSame($expected, $actual);
+        $this->assertSame($expected, $idGenerator->generate());
     }
 }

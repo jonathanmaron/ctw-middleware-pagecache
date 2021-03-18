@@ -15,9 +15,8 @@ class FullUriIdGeneratorTest extends AbstractCase
 
         $idGenerator = new FullUriIdGenerator();
 
-        $expected = 'c51b3dc89bd6ee8f395cdb0e974c8af29934f522b594a3b354893cb618bec5fa';
-        $actual   = $idGenerator->generate();
+        $expected = '0dc753aea22c9d0a3548b19e888fb5456ef61f0b581e20147b99df1a0966311d';
 
-        $this->assertSame($expected, $actual);
+        $this->assertSame($expected, $idGenerator->generate());
     }
 }

@@ -8,14 +8,7 @@ use Ctw\Middleware\PageCacheMiddleware\IdGenerator\AbstractIdGenerator as Parent
 class AbstractIdGenerator extends ParentAbstractIdGenerator
 {
     /**
-     * Emergency invalidation salt
-     *
-     * @var string
-     */
-    private const SALT = 'rhi0skgJnnyMvEwxVkSiOZK6wtIcX6lZlGuXRrAu';
-
-    /**
-     * Using the param, create a SHA256 hash.
+     * Using salted param, create a SHA256 hash.
      *
      * @param string $requestUri
      *
