@@ -22,7 +22,7 @@ abstract class AbstractPageCacheMiddleware implements MiddlewareInterface
 
     private bool                 $enabled;
 
-    private array                $handlers;
+    private                      $strategy;
 
     public function getStorageAdapter(): StorageAdapter
     {
@@ -60,14 +60,14 @@ abstract class AbstractPageCacheMiddleware implements MiddlewareInterface
         return $this;
     }
 
-    public function getHandlers(): array
+    public function getStrategy()
     {
-        return $this->handlers;
+        return $this->strategy;
     }
 
-    public function setHandlers(array $handlers): AbstractPageCacheMiddleware
+    public function setStrategy($strategy): self
     {
-        $this->handlers = $handlers;
+        $this->strategy = $strategy;
 
         return $this;
     }
@@ -78,18 +78,9 @@ abstract class AbstractPageCacheMiddleware implements MiddlewareInterface
             return false;
         }
 
-        $routeResult = $request->getAttribute(RouteResult::class);
 
-        if (!$routeResult instanceof RouteResult) {
-            return false;
-        }
+        return $this->getStrategy()->shouldCache($request);
 
-        $matchedRoute = $routeResult->getMatchedRoute();
 
-        if (!$matchedRoute instanceof Route) {
-            return false;
-        }
-
-        return in_array($matchedRoute->getName(), $this->getHandlers());
     }
 }
