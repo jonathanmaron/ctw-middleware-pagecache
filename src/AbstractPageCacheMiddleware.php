@@ -4,9 +4,8 @@ declare(strict_types=1);
 namespace Ctw\Middleware\PageCacheMiddleware;
 
 use Ctw\Middleware\PageCacheMiddleware\IdGenerator\IdGeneratorInterface;
+use Ctw\Middleware\PageCacheMiddleware\Strategy\StrategyInterface;
 use Laminas\Cache\Storage\Adapter\AbstractAdapter as StorageAdapter;
-use Mezzio\Router\Route;
-use Mezzio\Router\RouteResult;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 
@@ -20,9 +19,9 @@ abstract class AbstractPageCacheMiddleware implements MiddlewareInterface
 
     private IdGeneratorInterface $idGenerator;
 
-    private bool                 $enabled;
+    private StrategyInterface    $strategy;
 
-    private                      $strategy;
+    private bool                 $enabled;
 
     public function getStorageAdapter(): StorageAdapter
     {
@@ -48,7 +47,19 @@ abstract class AbstractPageCacheMiddleware implements MiddlewareInterface
         return $this;
     }
 
-    public function isEnabled(): bool
+    public function getStrategy(): StrategyInterface
+    {
+        return $this->strategy;
+    }
+
+    public function setStrategy(StrategyInterface $strategy): self
+    {
+        $this->strategy = $strategy;
+
+        return $this;
+    }
+
+    public function getEnabled(): bool
     {
         return $this->enabled;
     }
@@ -60,27 +71,12 @@ abstract class AbstractPageCacheMiddleware implements MiddlewareInterface
         return $this;
     }
 
-    public function getStrategy()
-    {
-        return $this->strategy;
-    }
-
-    public function setStrategy($strategy): self
-    {
-        $this->strategy = $strategy;
-
-        return $this;
-    }
-
     protected function shouldCache(ServerRequestInterface $request): bool
     {
-        if (!$this->isEnabled()) {
+        if (!$this->getEnabled()) {
             return false;
         }
 
-
         return $this->getStrategy()->shouldCache($request);
-
-
     }
 }

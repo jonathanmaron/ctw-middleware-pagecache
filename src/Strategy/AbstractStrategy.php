@@ -5,7 +5,7 @@ namespace Ctw\Middleware\PageCacheMiddleware\Strategy;
 
 abstract class AbstractStrategy
 {
-    protected array $config;
+    private array $config;
 
     public function getConfig(): array
     {

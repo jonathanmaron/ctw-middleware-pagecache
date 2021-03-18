@@ -14,6 +14,6 @@ class TestHandler implements RequestHandlerInterface
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        return new HtmlResponse('');
+        return new HtmlResponse('<html></html>');
     }
 }
