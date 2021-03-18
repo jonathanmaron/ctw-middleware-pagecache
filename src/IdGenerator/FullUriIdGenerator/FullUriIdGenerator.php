@@ -5,26 +5,35 @@ namespace Ctw\Middleware\PageCacheMiddleware\IdGenerator\FullUriIdGenerator;
 
 use Ctw\Middleware\PageCacheMiddleware\Exception\RuntimeException;
 use Ctw\Middleware\PageCacheMiddleware\IdGenerator\IdGeneratorInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\UriInterface;
 
 class FullUriIdGenerator extends AbstractIdGenerator implements IdGeneratorInterface
 {
     /**
-     * Generate an ID based on the request URI, HTTP host and server port.
+     * Generate an ID based on the request's host, port, path and query
+     *
+     * @param ServerRequestInterface $request
      *
      * @return string
      */
-    public function generate(): string
+    public function generate(ServerRequestInterface $request): string
     {
-        $requestUri = $this->getServerParam('REQUEST_URI');
+        $uri = $request->getUri();
 
-        if (0 === strlen($requestUri)) {
+        $path = $uri->getPath();
+
+        if (0 === strlen($path)) {
             $message = "Cannot auto-detect current page identity";
             throw new RuntimeException($message);
         }
 
-        $httpHost   = $this->getServerParam('HTTP_HOST');
-        $serverPort = $this->getServerParam('SERVER_PORT');
+        $port  = $uri->getPort();
+        $host  = $uri->getHost();
+        $query = $uri->getQuery();
 
-        return $this->getHash($httpHost, $serverPort, $requestUri);
+        $data = (string) self::SALT . $host . $port . $path . $query;
+
+        return hash('sha256', $data);
     }
 }

@@ -9,8 +9,6 @@ class RequestUriGeneratorFactory
 {
     public function __invoke(ContainerInterface $container): RequestUriGenerator
     {
-        $middleware = new RequestUriGenerator();
-
-        return $middleware;
+        return new RequestUriGenerator();
     }
 }

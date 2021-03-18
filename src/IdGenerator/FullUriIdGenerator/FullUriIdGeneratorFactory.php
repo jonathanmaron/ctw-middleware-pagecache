@@ -9,8 +9,6 @@ class FullUriIdGeneratorFactory
 {
     public function __invoke(ContainerInterface $container): FullUriIdGenerator
     {
-        $middleware = new FullUriIdGenerator();
-
-        return $middleware;
+        return new FullUriIdGenerator();
     }
 }

@@ -6,32 +6,32 @@ namespace CtwTest\Middleware\PageCacheMiddleware\IdGenerator\RequestUriGenerator
 use Ctw\Middleware\PageCacheMiddleware\Exception\RuntimeException;
 use Ctw\Middleware\PageCacheMiddleware\IdGenerator\RequestUriGenerator\RequestUriGenerator;
 use Ctw\Middleware\PageCacheMiddleware\IdGenerator\RequestUriGenerator\RequestUriGeneratorFactory;
+use Laminas\Diactoros\ServerRequest;
+use Laminas\Diactoros\Uri;
 use Laminas\ServiceManager\ServiceManager;
 
 class RequestUriGeneratorTest extends AbstractCase
 {
     public function testRequestUriGenerator(): void
     {
-        $_SERVER['REQUEST_URI'] = '/test';
-
+        $request   = new ServerRequest([], [], new Uri('https://www.example.com/test/?a=1'));
         $container = new ServiceManager();
         $factory   = new RequestUriGeneratorFactory();
 
         $idGenerator = $factory->__invoke($container);
 
-        $expected = '60950c02cc9958a16a00a7b3fceba7398597b5dec94d29357fb2ab7c9c939496';
+        $expected = '813bb287f36e285370f6638a10b97e433e83fac565747e769ac98ab240ffe485';
 
-        $this->assertSame($expected, $idGenerator->generate());
+        $this->assertSame($expected, $idGenerator->generate($request));
     }
 
     public function testRequestUriGeneratorException(): void
     {
         $this->expectException(RuntimeException::class);
 
-        unset($_SERVER['REQUEST_URI']);
-
+        $request     = new ServerRequest([], [], new Uri());
         $idGenerator = new RequestUriGenerator();
 
-        $idGenerator->generate();
+        $idGenerator->generate($request);
     }
 }

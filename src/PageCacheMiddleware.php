@@ -19,7 +19,7 @@ class PageCacheMiddleware extends AbstractPageCacheMiddleware
         $idGenerator = $this->getIdGenerator();
         $cache       = $this->getStorageAdapter();
 
-        $cacheId    = $idGenerator->generate();
+        $cacheId    = $idGenerator->generate($request);
         $serialized = $cache->getItem($cacheId, $success, $casToken);
 
         if (!$success) {

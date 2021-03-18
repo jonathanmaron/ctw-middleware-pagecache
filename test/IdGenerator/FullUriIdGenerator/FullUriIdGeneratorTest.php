@@ -6,34 +6,32 @@ namespace CtwTest\Middleware\PageCacheMiddleware\IdGenerator\FullUriIdGenerator;
 use Ctw\Middleware\PageCacheMiddleware\Exception\RuntimeException;
 use Ctw\Middleware\PageCacheMiddleware\IdGenerator\FullUriIdGenerator\FullUriIdGenerator;
 use Ctw\Middleware\PageCacheMiddleware\IdGenerator\FullUriIdGenerator\FullUriIdGeneratorFactory;
+use Laminas\Diactoros\ServerRequest;
+use Laminas\Diactoros\Uri;
 use Laminas\ServiceManager\ServiceManager;
 
 class FullUriIdGeneratorTest extends AbstractCase
 {
     public function testFullUriIdGenerator(): void
     {
-        $_SERVER['REQUEST_URI'] = '/test';
-        $_SERVER['HTTP_HOST']   = 'https://www.example.com';
-        $_SERVER['SERVER_PORT'] = 443;
-
+        $request   = new ServerRequest([], [], new Uri('https://www.example.com/test/?a=1'));
         $container = new ServiceManager();
         $factory   = new FullUriIdGeneratorFactory();
 
         $idGenerator = $factory->__invoke($container);
 
-        $expected = '0dc753aea22c9d0a3548b19e888fb5456ef61f0b581e20147b99df1a0966311d';
+        $expected = 'ca53938a1b5e74588f148be54af37ec66cce2e8295cc2bcefab482a3a5ab2d09';
 
-        $this->assertSame($expected, $idGenerator->generate());
+        $this->assertSame($expected, $idGenerator->generate($request));
     }
 
     public function testFullUriIdGeneratorException(): void
     {
         $this->expectException(RuntimeException::class);
 
-        unset($_SERVER['REQUEST_URI']);
-
+        $request     = new ServerRequest([], [], new Uri());
         $idGenerator = new FullUriIdGenerator();
 
-        $idGenerator->generate();
+        $idGenerator->generate($request);
     }
 }
