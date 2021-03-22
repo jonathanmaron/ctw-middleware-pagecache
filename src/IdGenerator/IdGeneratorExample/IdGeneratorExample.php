@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Ctw\Middleware\PageCacheMiddleware\IdGenerator\IdGeneratorExample;
 
-use Ctw\Middleware\PageCacheMiddleware\IdGenerator\FullUriIdGenerator\AbstractIdGenerator;
 use Ctw\Middleware\PageCacheMiddleware\IdGenerator\IdGeneratorInterface;
 use Mezzio\Session\SessionInterface;
 use Mezzio\Session\SessionMiddleware;
