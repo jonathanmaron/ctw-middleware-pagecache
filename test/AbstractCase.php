@@ -5,12 +5,13 @@ namespace CtwTest\Middleware\PageCacheMiddleware;
 
 use Laminas\Cache\Storage\Adapter\Filesystem as CacheStorageAdapter;
 use Laminas\Cache\Storage\Plugin\Serializer;
+use Laminas\Cache\Storage\StorageInterface;
 use Laminas\Cache\StorageFactory as LaminasStorageFactory;
 use PHPUnit\Framework\TestCase;
 
 abstract class AbstractCase extends TestCase
 {
-    protected function getStorageAdapter(): CacheStorageAdapter
+    protected function getStorageAdapter(): StorageInterface
     {
         $cacheDir = sys_get_temp_dir() . '/0d28cc3e-c2d3-40bc-9ba5-e182fb92ed53';
 
