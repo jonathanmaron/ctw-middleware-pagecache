@@ -20,19 +20,19 @@ class FullUriIdGenerator extends AbstractIdGenerator implements IdGeneratorInter
     {
         $uri = $request->getUri();
 
-        $path = $uri->getPath();
-
-        if (0 === strlen($path)) {
+        if (0 === strlen($uri->getPath())) {
             $message = "Cannot auto-detect current page identity";
             throw new RuntimeException($message);
         }
 
-        $port  = $uri->getPort();
-        $host  = $uri->getHost();
-        $query = $uri->getQuery();
+        $vars = [
+            self::SALT,
+            $uri->getPath(),
+            $uri->getPort(),
+            $uri->getHost(),
+            $uri->getQuery(),
+        ];
 
-        $data = (string) self::SALT . $host . $port . $path . $query;
-
-        return hash('sha256', $data);
+        return $this->getHash($vars);
     }
 }

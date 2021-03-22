@@ -20,7 +20,7 @@ class RequestUriGeneratorTest extends AbstractCase
 
         $idGenerator = $factory->__invoke($container);
 
-        $expected = '813bb287f36e285370f6638a10b97e433e83fac565747e769ac98ab240ffe485';
+        $expected = 'abc876abc281af806683bef2805b826568b04e786ac354e1c7552571005f3b07';
 
         $this->assertSame($expected, $idGenerator->generate($request));
     }

@@ -20,17 +20,16 @@ class RequestUriGenerator extends AbstractIdGenerator implements IdGeneratorInte
     {
         $uri = $request->getUri();
 
-        $path = $uri->getPath();
-
-        if (0 === strlen($path)) {
-            $message = "Cannot auto-detect current page identity";
+        if (0 === strlen($uri->getPath())) {
+            $message = 'Cannot auto-detect current page identity';
             throw new RuntimeException($message);
         }
 
-        $query = $uri->getQuery();
+        $vars = [
+            self::SALT,
+            $uri->getQuery(),
+        ];
 
-        $data = (string) self::SALT . $path . $query;
-
-        return hash('sha256', $data);
+        return $this->getHash($vars);
     }
 }

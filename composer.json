@@ -11,7 +11,8 @@
         "ctw/ctw-middleware": "^1.0",
         "laminas/laminas-cache": "^2.10",
         "laminas/laminas-diactoros": "^2.5",
-        "mezzio/mezzio-fastroute": "^3.1"
+        "mezzio/mezzio-fastroute": "^3.1",
+        "mezzio/mezzio-session": "^1.4"
     },
     "require-dev": {
         "laminas/laminas-servicemanager": "^3.6",

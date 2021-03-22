@@ -14,4 +14,18 @@ abstract class AbstractIdGenerator
      * @var string
      */
     protected const SALT = 'rhi0skgJnnyMvEwxVkSiOZK6wtIcX6lZlGuXRrAu';
+
+    /**
+     * Return a SHA256 hash for the passed $vars
+     *
+     * @param array $vars
+     *
+     * @return string
+     */
+    protected function getHash(array $vars): string
+    {
+        $data = implode('|', array_filter($vars));
+
+        return hash('sha256', $data);
+    }
 }
