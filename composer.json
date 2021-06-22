@@ -3,9 +3,6 @@
     "type": "library",
     "description": "This PSR-15 middleware provides full page caching for Mezzio applications.",
     "license": "BSD-3-Clause",
-    "config": {
-        "sort-packages": true
-    },
     "require": {
         "php": "^7.4",
         "ctw/ctw-middleware": "^1.0",
@@ -21,6 +18,9 @@
         "squizlabs/php_codesniffer": "^3.5",
         "symfony/var-dumper": "^5.2"
     },
+    "config": {
+        "sort-packages": true
+    },
     "autoload": {
         "psr-4": {
             "Ctw\\Middleware\\PageCacheMiddleware\\": "src"
@@ -32,15 +32,15 @@
         }
     },
     "scripts": {
-        "phpcs": "vendor/bin/phpcs",
         "phpcbf": "vendor/bin/phpcbf",
+        "phpcs": "vendor/bin/phpcs",
         "phpstan": "rm -fr build/phpstan && mkdir -p build/phpstan && vendor/bin/phpstan analyse --error-format=raw --configuration=phpstan.neon | tee build/phpstan/output.txt",
-        "test": "export XDEBUG_MODE=coverage && vendor/bin/phpunit --debug",
         "qa": [
             "@phpcbf",
             "@phpcs",
             "@phpstan",
             "@test"
-        ]
+        ],
+        "test": "export XDEBUG_MODE=coverage && vendor/bin/phpunit --debug"
     }
 }

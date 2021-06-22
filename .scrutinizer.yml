@@ -1,5 +1,3 @@
-inherit: true
-
 checks:
     php:
         code_rating: true
@@ -13,12 +11,25 @@ build:
     nodes:
         php74:
             environment:
-                php: 7.4
+                php:
+                    version: 7.4
             tests:
                 override:
                     - php-scrutinizer-run
                     -
-                        command: composer test
+                        command: vendor/bin/phpunit --coverage-clover=coverage74.xml
                         coverage:
-                            file: build/phpunit/clover.xml
+                            file: coverage74.xml
+                            format: php-clover
+        php80:
+            environment:
+                php:
+                    version: 8.0
+            tests:
+                override:
+                    - php-scrutinizer-run
+                    -
+                        command: XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-clover=coverage80.xml
+                        coverage:
+                            file: coverage80.xml
                             format: php-clover
