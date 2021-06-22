@@ -4,7 +4,7 @@
     "description": "This PSR-15 middleware provides full page caching for Mezzio applications.",
     "license": "BSD-3-Clause",
     "require": {
-        "php": "^7.4",
+        "php": "^7.4 || ^8.0",
         "ctw/ctw-middleware": "^1.0",
         "laminas/laminas-cache": "^2.10",
         "laminas/laminas-diactoros": "^2.5",
