@@ -22,7 +22,7 @@ class RequestUriGeneratorTest extends AbstractCase
 
         $expected = 'abc876abc281af806683bef2805b826568b04e786ac354e1c7552571005f3b07';
 
-        $this->assertSame($expected, $idGenerator->generate($request));
+        self::assertSame($expected, $idGenerator->generate($request));
     }
 
     public function testRequestUriGeneratorException(): void

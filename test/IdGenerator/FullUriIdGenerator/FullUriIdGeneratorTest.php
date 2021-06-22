@@ -22,7 +22,7 @@ class FullUriIdGeneratorTest extends AbstractCase
 
         $expected = 'c386fa280ba039f4160541d2c1d78af327cacee1519bfcf0177ed8ba7560cf46';
 
-        $this->assertSame($expected, $idGenerator->generate($request));
+        self::assertSame($expected, $idGenerator->generate($request));
     }
 
     public function testFullUriIdGeneratorException(): void

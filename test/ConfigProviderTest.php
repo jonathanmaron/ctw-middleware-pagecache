@@ -21,6 +21,6 @@ class ConfigProviderTest extends AbstractCase
             ],
         ];
 
-        $this->assertSame($expected, $configProvider->__invoke());
+        self::assertSame($expected, $configProvider->__invoke());
     }
 }

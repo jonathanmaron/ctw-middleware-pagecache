@@ -40,9 +40,9 @@ class PageCacheMiddlewareTest extends AbstractCase
         //dump($response->getHeaders());
         //dump($response->getBody()->getContents());
 
-        // $this->assertEquals('[..]', $actual);
+        // self::assertEquals('[..]', $actual);
 
-        $this->assertTrue(true);
+        self::assertTrue(true);
     }
 
     private function getInstance(): PageCacheMiddleware

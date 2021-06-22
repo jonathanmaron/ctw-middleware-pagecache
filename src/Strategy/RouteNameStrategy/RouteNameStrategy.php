@@ -24,6 +24,6 @@ class RouteNameStrategy extends AbstractStrategy implements StrategyInterface
             return false;
         }
 
-        return in_array($matchedRoute->getName(), $this->getNames());
+        return in_array($matchedRoute->getName(), $this->getNames(), true);
     }
 }
