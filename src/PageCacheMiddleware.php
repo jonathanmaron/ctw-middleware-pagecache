@@ -29,6 +29,7 @@ class PageCacheMiddleware extends AbstractPageCacheMiddleware
             $cache->setItem($cacheId, $serialized);
         } else {
             $cacheStatus = self::STATUS_HIT;
+            assert(is_array($serialized));
             $response    = ResponseSerializer::fromArray($serialized);
         }
 
