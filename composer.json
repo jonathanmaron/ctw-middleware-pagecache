@@ -6,7 +6,7 @@
     "require": {
         "php": "^7.4 || ^8.1",
         "ctw/ctw-middleware": "^2.0",
-        "laminas/laminas-cache": "^2.10",
+        "laminas/laminas-cache": "^3.1",
         "laminas/laminas-diactoros": "^2.5",
         "mezzio/mezzio-fastroute": "^3.1",
         "mezzio/mezzio-session": "^1.4"
