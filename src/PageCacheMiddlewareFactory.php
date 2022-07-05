@@ -5,14 +5,22 @@ namespace Ctw\Middleware\PageCacheMiddleware;
 
 use Ctw\Middleware\PageCacheMiddleware\IdGenerator\IdGeneratorInterface;
 use Ctw\Middleware\PageCacheMiddleware\Strategy\StrategyInterface;
-use Laminas\Cache\Storage\Adapter\AbstractAdapter;
+use Laminas\Cache\Storage\Adapter\AbstractAdapter as StorageAdapter;
+use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
+use Psr\Container\NotFoundExceptionInterface;
 
 class PageCacheMiddlewareFactory
 {
+    /**
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
     public function __invoke(ContainerInterface $container): PageCacheMiddleware
     {
         $config = $container->get('config');
+        assert(is_array($config));
+
         $config = $config[PageCacheMiddleware::class];
 
         $enabled        = $this->getEnabled($container, $config);
@@ -35,17 +43,25 @@ class PageCacheMiddlewareFactory
         return $config['enabled'];
     }
 
-    private function getStorageAdapter(ContainerInterface $container, array $config): AbstractAdapter
+    /**
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
+    private function getStorageAdapter(ContainerInterface $container, array $config): StorageAdapter
     {
-        return $container->get('tism_cache_storage_adapter');
+        $storageAdapter = $container->get('ctw_cache_storage_adapter');
+        assert($storageAdapter instanceof StorageAdapter);
+
+        return $storageAdapter;
     }
 
     private function getIdGenerator(ContainerInterface $container, array $config): IdGeneratorInterface
     {
         $factoryName = sprintf('%sFactory', $config['id_generator']);
         $factory     = new $factoryName();
+        assert(is_callable($factory));
 
-        return $factory->__invoke($container);
+        return $factory($container);
     }
 
     private function getStrategy(ContainerInterface $container, array $config): StrategyInterface
@@ -54,7 +70,8 @@ class PageCacheMiddlewareFactory
 
         $factoryName = sprintf('%sFactory', array_shift($keys));
         $factory     = new $factoryName();
+        assert(is_callable($factory));
 
-        return $factory->__invoke($container);
+        return $factory($container);
     }
 }

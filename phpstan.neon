@@ -1,3 +1,5 @@
+includes:
+    - phpstan-baseline.neon
 parameters:
     parallel:
         jobSize: 64

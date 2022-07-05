@@ -64,7 +64,7 @@ class PageCacheMiddlewareTest extends AbstractCase
         ];
 
         $container->setService('config', $config);
-        $container->setService('tism_cache_storage_adapter', $this->getStorageAdapter());
+        $container->setService('ctw_cache_storage_adapter', $this->getStorageAdapter());
 
         $factory = new PageCacheMiddlewareFactory();
 
