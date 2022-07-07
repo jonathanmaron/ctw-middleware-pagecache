@@ -15,4 +15,3 @@ parameters:
         - php
     level: max
     checkMissingIterableValueType: false
-    checkGenericClassInNonGenericObjectType: false
