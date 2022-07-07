@@ -14,4 +14,14 @@
 
     <rule ref="PSR2"/>
 
+    <!-- this rule is not PSR-2, but degrades code legibility, if enforced -->
+    <rule ref="Squiz.WhiteSpace.ControlStructureSpacing.SpacingAfterOpen">
+        <severity>0</severity>
+    </rule>
+
+    <!-- this rule is not PSR-2, but degrades code legibility, if enforced -->
+    <rule ref="Squiz.WhiteSpace.ControlStructureSpacing.SpacingBeforeClose">
+        <severity>0</severity>
+    </rule>
+
 </ruleset>
