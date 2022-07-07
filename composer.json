@@ -5,7 +5,7 @@
     "type": "library",
     "require": {
         "php": "^8.0",
-        "ctw/ctw-middleware": "dev-php81",
+        "ctw/ctw-middleware": "^3.0",
         "laminas/laminas-cache": "^3.1",
         "laminas/laminas-cache-storage-adapter-filesystem": "^2.0",
         "laminas/laminas-diactoros": "^2.11",
