@@ -9,18 +9,6 @@ filter:
 
 build:
     nodes:
-        php80:
-            environment:
-                php:
-                    version: 8.0
-            tests:
-                override:
-                    - php-scrutinizer-run
-                    -
-                        command: XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-clover=coverage80.xml
-                        coverage:
-                            file: coverage80.xml
-                            format: php-clover
         php81:
             environment:
                 php:
