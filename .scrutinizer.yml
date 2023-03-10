@@ -21,4 +21,15 @@ build:
                         coverage:
                             file: coverage81.xml
                             format: php-clover
-
+        php82:
+            environment:
+                php:
+                    version: 8.2
+            tests:
+                override:
+                    - php-scrutinizer-run
+                    -
+                        command: XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-clover=coverage82.xml
+                        coverage:
+                            file: coverage82.xml
+                            format: php-clover
