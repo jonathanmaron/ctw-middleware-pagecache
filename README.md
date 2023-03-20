@@ -1,13 +1,13 @@
-# ctw/ctw-middleware-page-cache
+# ctw/ctw-middleware-pagecache
 
-[![Build Status](https://scrutinizer-ci.com/g/jonathanmaron/ctw-middleware-page-cache/badges/build.png?b=master)](https://scrutinizer-ci.com/g/jonathanmaron/ctw-middleware-page-cache/build-status/master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/jonathanmaron/ctw-middleware-page-cache/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/jonathanmaron/ctw-middleware-page-cache/?branch=master)
-[![Latest Stable Version](https://poser.pugx.org/ctw/ctw-middleware-page-cache/v/stable)](https://packagist.org/packages/ctw/ctw-middleware-page-cache)
+[![Build Status](https://scrutinizer-ci.com/g/jonathanmaron/ctw-middleware-pagecache/badges/build.png?b=master)](https://scrutinizer-ci.com/g/jonathanmaron/ctw-middleware-pagecache/build-status/master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/jonathanmaron/ctw-middleware-pagecache/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/jonathanmaron/ctw-middleware-pagecache/?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/ctw/ctw-middleware-pagecache/v/stable)](https://packagist.org/packages/ctw/ctw-middleware-pagecache)
 
 :warning: **This component is under heavy development. Do not (yet) use it in a production environment.**
 
 ```bash
-$ composer require ctw/ctw-middleware-page-cache
+$ composer require ctw/ctw-middleware-pagecache
 ```
 Intro
 
@@ -18,7 +18,7 @@ Intro
 Install the middleware using Composer:
 
 ```bash
-$ composer require ctw/ctw-middleware-page-cache
+$ composer require ctw/ctw-middleware-pagecache
 ```
 
 ## Standalone Example

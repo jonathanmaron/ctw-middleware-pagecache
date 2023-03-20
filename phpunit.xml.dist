@@ -15,7 +15,7 @@
     </report>
   </coverage>
   <testsuites>
-    <testsuite name="ctw/ctw-middleware-page-cache">
+    <testsuite name="ctw/ctw-middleware-pagecache">
       <directory>test</directory>
     </testsuite>
   </testsuites>

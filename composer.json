@@ -1,5 +1,5 @@
 {
-    "name": "ctw/ctw-middleware-page-cache",
+    "name": "ctw/ctw-middleware-pagecache",
     "description": "This PSR-15 middleware provides full page caching for Mezzio applications.",
     "license": "BSD-3-Clause",
     "type": "library",
