@@ -83,7 +83,8 @@ abstract class AbstractPageCacheMiddleware implements MiddlewareInterface
             return false;
         }
 
-        return $this->getStrategy()
-            ->shouldCache($request);
+        $strategy = $this->getStrategy();
+
+        return $strategy->shouldCache($request);
     }
 }

@@ -20,7 +20,6 @@ class PageCacheMiddlewareTest extends AbstractCase
     public function testPageCacheMiddleware(): void
     {
         $content     = (string) file_get_contents(__DIR__ . '/TestAsset/test_input.htm');
-        $contentType = 'text/html';
 
         $request = Factory::createServerRequest('GET', '/');
 
@@ -28,11 +27,12 @@ class PageCacheMiddlewareTest extends AbstractCase
 
         $stack    = [
             $this->getInstance(),
-            static function () use ($content, $contentType): ResponseInterface {
-                $response = Factory::createResponse();
-                $body     = Factory::getStreamFactory()->createStream($content);
-                return $response->withHeader('Content-Type', $contentType)
-                    ->withBody($body);
+            static function () use ($content): ResponseInterface {
+                $contentType = 'text/html';
+                $response    = Factory::createResponse();
+                $response    = $response->withHeader('Content-Type', $contentType);
+                $body        = Factory::getStreamFactory()->createStream($content);
+                return $response->withBody($body);
             },
         ];
         $response = Dispatcher::run($stack, $request);
