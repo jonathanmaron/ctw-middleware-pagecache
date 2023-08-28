@@ -17,10 +17,6 @@ abstract class AbstractIdGenerator
 
     /**
      * Return a SHA256 hash for the passed $vars
-     *
-     * @param array $vars
-     *
-     * @return string
      */
     protected function getHash(array $vars): string
     {

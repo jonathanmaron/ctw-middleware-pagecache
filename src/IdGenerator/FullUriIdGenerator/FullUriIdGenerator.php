@@ -11,27 +11,17 @@ class FullUriIdGenerator extends AbstractIdGenerator implements IdGeneratorInter
 {
     /**
      * Generate an ID based on the request's host, port, path and query
-     *
-     * @param ServerRequestInterface $request
-     *
-     * @return string
      */
     public function generate(ServerRequestInterface $request): string
     {
         $uri = $request->getUri();
 
-        if (0 === strlen($uri->getPath())) {
-            $message = "Cannot auto-detect current page identity";
+        if ('' === $uri->getPath()) {
+            $message = 'Cannot auto-detect current page identity';
             throw new RuntimeException($message);
         }
 
-        $vars = [
-            self::SALT,
-            $uri->getPath(),
-            $uri->getPort(),
-            $uri->getHost(),
-            $uri->getQuery(),
-        ];
+        $vars = [self::SALT, $uri->getPath(), $uri->getPort(), $uri->getHost(), $uri->getQuery()];
 
         return $this->getHash($vars);
     }

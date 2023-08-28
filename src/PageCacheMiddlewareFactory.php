@@ -6,16 +6,10 @@ namespace Ctw\Middleware\PageCacheMiddleware;
 use Ctw\Middleware\PageCacheMiddleware\IdGenerator\IdGeneratorInterface;
 use Ctw\Middleware\PageCacheMiddleware\Strategy\StrategyInterface;
 use Laminas\Cache\Storage\Adapter\AbstractAdapter as StorageAdapter;
-use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
-use Psr\Container\NotFoundExceptionInterface;
 
 class PageCacheMiddlewareFactory
 {
-    /**
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
-     */
     public function __invoke(ContainerInterface $container): PageCacheMiddleware
     {
         $config = $container->get('config');
@@ -23,8 +17,8 @@ class PageCacheMiddlewareFactory
 
         $config = $config[PageCacheMiddleware::class];
 
-        $enabled        = $this->getEnabled($container, $config);
-        $storageAdapter = $this->getStorageAdapter($container, $config);
+        $enabled        = $this->getEnabled($config);
+        $storageAdapter = $this->getStorageAdapter($container);
         $idGenerator    = $this->getIdGenerator($container, $config);
         $strategy       = $this->getStrategy($container, $config);
 
@@ -38,16 +32,13 @@ class PageCacheMiddlewareFactory
         return $middleware;
     }
 
-    private function getEnabled(ContainerInterface $container, array $config): bool
+    private function getEnabled(array $config): bool
     {
         return $config['enabled'];
     }
 
-    /**
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
-     */
-    private function getStorageAdapter(ContainerInterface $container, array $config): StorageAdapter
+
+    private function getStorageAdapter(ContainerInterface $container): StorageAdapter
     {
         $storageAdapter = $container->get('ctw_cache_storage_adapter');
         assert($storageAdapter instanceof StorageAdapter);

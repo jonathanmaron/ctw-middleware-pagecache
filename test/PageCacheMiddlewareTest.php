@@ -28,11 +28,11 @@ class PageCacheMiddlewareTest extends AbstractCase
 
         $stack    = [
             $this->getInstance(),
-            function () use ($content, $contentType): ResponseInterface {
+            static function () use ($content, $contentType): ResponseInterface {
                 $response = Factory::createResponse();
                 $body     = Factory::getStreamFactory()->createStream($content);
-
-                return $response->withHeader('Content-Type', $contentType)->withBody($body);
+                return $response->withHeader('Content-Type', $contentType)
+                    ->withBody($body);
             },
         ];
         $response = Dispatcher::run($stack, $request);
@@ -55,9 +55,7 @@ class PageCacheMiddlewareTest extends AbstractCase
                 'id_generator' => FullUriIdGenerator::class,
                 'strategy'     => [
                     RouteNameStrategy::class => [
-                        'names' => [
-                            TestHandler::NAME,
-                        ],
+                        'names' => [TestHandler::NAME],
                     ],
                 ],
             ],

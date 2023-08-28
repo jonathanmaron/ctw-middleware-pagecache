@@ -11,8 +11,14 @@ use Psr\Http\Server\MiddlewareInterface;
 
 abstract class AbstractPageCacheMiddleware implements MiddlewareInterface
 {
+    /**
+     * @var string
+     */
     protected const STATUS_HIT  = 'Hit';
 
+    /**
+     * @var string
+     */
     protected const STATUS_MISS = 'Miss';
 
     private StorageAdapter       $storageAdapter;
@@ -77,6 +83,7 @@ abstract class AbstractPageCacheMiddleware implements MiddlewareInterface
             return false;
         }
 
-        return $this->getStrategy()->shouldCache($request);
+        return $this->getStrategy()
+            ->shouldCache($request);
     }
 }

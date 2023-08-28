@@ -9,10 +9,6 @@ interface StrategyInterface
 {
     /**
      * Return true, if the resource should be cached, false otherwise.
-     *
-     * @param ServerRequestInterface $request
-     *
-     * @return bool
      */
     public function shouldCache(ServerRequestInterface $request): bool;
 }

@@ -33,8 +33,6 @@ class PageCacheMiddleware extends AbstractPageCacheMiddleware
             $response    = ResponseSerializer::fromArray($serialized);
         }
 
-        $response = $response->withHeader('X-Page-Cache', $cacheStatus);
-
-        return $response;
+        return $response->withHeader('X-Page-Cache', $cacheStatus);
     }
 }
