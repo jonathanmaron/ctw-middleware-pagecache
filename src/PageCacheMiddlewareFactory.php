@@ -37,7 +37,6 @@ class PageCacheMiddlewareFactory
         return $config['enabled'];
     }
 
-
     private function getStorageAdapter(ContainerInterface $container): StorageAdapter
     {
         $storageAdapter = $container->get('ctw_cache_storage_adapter');

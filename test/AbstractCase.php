@@ -33,6 +33,7 @@ abstract class AbstractCase extends TestCase
         $plugin  = new ExceptionHandler();
         $options = $plugin->getOptions();
         $options->setThrowExceptions(false);
+
         $storageAdapter->addPlugin($plugin);
 
         $plugin = new Serializer();

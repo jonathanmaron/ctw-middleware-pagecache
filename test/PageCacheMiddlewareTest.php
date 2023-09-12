@@ -31,18 +31,14 @@ class PageCacheMiddlewareTest extends AbstractCase
                 $contentType = 'text/html';
                 $response    = Factory::createResponse();
                 $response    = $response->withHeader('Content-Type', $contentType);
+
                 $body        = Factory::getStreamFactory()->createStream($content);
                 return $response->withBody($body);
             },
         ];
         $response = Dispatcher::run($stack, $request);
 
-        //dump($response->getHeaders());
-        //dump($response->getBody()->getContents());
-
-        // self::assertEquals('[..]', $actual);
-
-        self::assertTrue(true);
+        self::assertEquals(200, $response->getStatusCode());
     }
 
     private function getInstance(): PageCacheMiddleware
