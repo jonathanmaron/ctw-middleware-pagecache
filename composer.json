@@ -1,4 +1,4 @@
-{  "minimum-stability": "dev", "prefer-stable": true,  
+{
     "name": "ctw/ctw-middleware-pagecache",
     "description": "This PSR-15 middleware provides full page caching for Mezzio applications.",
     "license": "BSD-3-Clause",
@@ -23,6 +23,8 @@
         "squizlabs/php_codesniffer": "^3.6",
         "symfony/var-dumper": "^7.0"
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "Ctw\\Middleware\\PageCacheMiddleware\\": "src"
