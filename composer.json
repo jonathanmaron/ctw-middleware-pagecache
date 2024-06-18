@@ -5,7 +5,7 @@
     "type": "library",
     "require": {
         "php": "^8.3",
-        "ctw/ctw-middleware": "dev-php83",
+        "ctw/ctw-middleware": "^4.0",
         "laminas/laminas-cache": "^3.1",
         "laminas/laminas-cache-storage-adapter-filesystem": "^2.0",
         "laminas/laminas-diactoros": "^2.11",
@@ -14,7 +14,7 @@
         "psr/container": "^1.0 || ^2.0"
     },
     "require-dev": {
-        "ctw/ctw-qa": "dev-php83",
+        "ctw/ctw-qa": "^4.0",
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan": "^1.7",
         "phpstan/phpstan-phpunit": "^1.1",
