@@ -10,10 +10,7 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 class TestHandler implements RequestHandlerInterface
 {
-    /**
-     * @var string
-     */
-    final public const NAME = 'app::test/test';
+    final public const string NAME = 'app::test/test';
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {

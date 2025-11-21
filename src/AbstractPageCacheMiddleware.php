@@ -21,13 +21,13 @@ abstract class AbstractPageCacheMiddleware implements MiddlewareInterface
      */
     protected const STATUS_MISS = 'Miss';
 
-    private StorageAdapter       $storageAdapter;
+    private StorageAdapter $storageAdapter;
 
     private IdGeneratorInterface $idGenerator;
 
-    private StrategyInterface    $strategy;
+    private StrategyInterface $strategy;
 
-    private bool                 $enabled;
+    private bool $enabled;
 
     public function getStorageAdapter(): StorageAdapter
     {

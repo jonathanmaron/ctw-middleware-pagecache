@@ -11,7 +11,6 @@ use Ctw\Qa\EasyCodingStandard\Config\ECSConfig\DefaultSkip;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 
 return static function (ECSConfig $ecsConfig): void {
-
     $fileExtensions = new DefaultFileExtensions();
     $indentation    = new DefaultIndentation();
     $lineEnding     = new DefaultLineEnding();

@@ -7,7 +7,6 @@ use Ctw\Qa\Rector\Config\RectorConfig\DefaultSkip;
 use Rector\Config\RectorConfig;
 
 return static function (RectorConfig $rectorConfig): void {
-
     $fileExtensions = new DefaultFileExtensions();
     $sets           = new DefaultSets();
     $skip           = new DefaultSkip();
