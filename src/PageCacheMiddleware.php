@@ -22,7 +22,7 @@ class PageCacheMiddleware extends AbstractPageCacheMiddleware
         $cacheId    = $idGenerator->generate($request);
         $serialized = $cache->getItem($cacheId, $success, $casToken);
 
-        if (!$success) {
+        if (true !== $success) {
             $cacheStatus = self::STATUS_MISS;
             $response    = $handler->handle($request);
             $serialized  = ResponseSerializer::toArray($response);

@@ -20,7 +20,10 @@ abstract class AbstractIdGenerator
      */
     protected function getHash(array $vars): string
     {
-        $data = implode('|', array_filter($vars));
+        $data = implode(
+            '|',
+            array_filter($vars, static fn($value): bool => !in_array($value, [null, '', false], true))
+        );
 
         return hash('sha256', $data);
     }

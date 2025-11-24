@@ -10,7 +10,9 @@ abstract class AbstractStrategy extends ParentAbstractStrategy
     protected function getNames(): array
     {
         $config = $this->getConfig();
+        $names = $config['names'];
+        assert(is_array($names));
 
-        return $config['names'];
+        return $names;
     }
 }

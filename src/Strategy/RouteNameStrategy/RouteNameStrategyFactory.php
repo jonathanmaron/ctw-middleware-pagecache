@@ -13,12 +13,17 @@ class RouteNameStrategyFactory
         $config = $container->get('config');
         assert(is_array($config));
 
-        $config = $config[PageCacheMiddleware::class];
-        $config = $config['strategy'];
-        $config = $config[RouteNameStrategy::class];
+        $middlewareConfig = $config[PageCacheMiddleware::class];
+        assert(is_array($middlewareConfig));
+
+        $strategyConfig = $middlewareConfig['strategy'];
+        assert(is_array($strategyConfig));
+
+        $routeNameConfig = $strategyConfig[RouteNameStrategy::class];
+        assert(is_array($routeNameConfig));
 
         $strategy = new RouteNameStrategy();
-        $strategy->setConfig($config);
+        $strategy->setConfig($routeNameConfig);
 
         return $strategy;
     }

@@ -15,12 +15,13 @@ class PageCacheMiddlewareFactory
         $config = $container->get('config');
         assert(is_array($config));
 
-        $config = $config[PageCacheMiddleware::class];
+        $middlewareConfig = $config[PageCacheMiddleware::class];
+        assert(is_array($middlewareConfig));
 
-        $enabled        = $this->getEnabled($config);
+        $enabled        = $this->getEnabled($middlewareConfig);
         $storageAdapter = $this->getStorageAdapter($container);
-        $idGenerator    = $this->getIdGenerator($container, $config);
-        $strategy       = $this->getStrategy($container, $config);
+        $idGenerator    = $this->getIdGenerator($container, $middlewareConfig);
+        $strategy       = $this->getStrategy($container, $middlewareConfig);
 
         $middleware = new PageCacheMiddleware();
 
@@ -34,7 +35,9 @@ class PageCacheMiddlewareFactory
 
     private function getEnabled(array $config): bool
     {
-        return $config['enabled'];
+        $enabled = $config['enabled'];
+        assert(is_bool($enabled));
+        return $enabled;
     }
 
     private function getStorageAdapter(ContainerInterface $container): StorageAdapter
@@ -47,21 +50,31 @@ class PageCacheMiddlewareFactory
 
     private function getIdGenerator(ContainerInterface $container, array $config): IdGeneratorInterface
     {
-        $factoryName = sprintf('%sFactory', $config['id_generator']);
+        $idGeneratorClass = $config['id_generator'];
+        assert(is_string($idGeneratorClass));
+        $factoryName = sprintf('%sFactory', $idGeneratorClass);
         $factory     = new $factoryName();
         assert(is_callable($factory));
 
-        return $factory($container);
+        $idGenerator = $factory($container);
+        assert($idGenerator instanceof IdGeneratorInterface);
+        return $idGenerator;
     }
 
     private function getStrategy(ContainerInterface $container, array $config): StrategyInterface
     {
-        $keys = array_keys($config['strategy']);
+        $strategyConfig = $config['strategy'];
+        assert(is_array($strategyConfig));
+        $keys = array_keys($strategyConfig);
 
-        $factoryName = sprintf('%sFactory', array_shift($keys));
+        $strategyClass = array_shift($keys);
+        assert(is_string($strategyClass));
+        $factoryName = sprintf('%sFactory', $strategyClass);
         $factory     = new $factoryName();
         assert(is_callable($factory));
 
-        return $factory($container);
+        $strategy = $factory($container);
+        assert($strategy instanceof StrategyInterface);
+        return $strategy;
     }
 }
