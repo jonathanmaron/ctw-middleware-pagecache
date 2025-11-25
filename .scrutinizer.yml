@@ -1,35 +1,24 @@
+build:
+    image: default-bionic
+
+    environment:
+        php:
+            version: 8.3.0
+
+    tests:
+        override:
+            - composer install --no-interaction
+            -
+                command: XDEBUG_MODE=coverage php vendor/bin/phpunit --coverage-clover=coverage.xml
+                coverage:
+                    file: coverage.xml
+                    format: clover
+
+filter:
+    paths:
+        - src/
+
 checks:
     php:
         code_rating: true
         duplication: true
-
-filter:
-    paths:
-        - src/*
-
-build:
-    nodes:
-        php81:
-            environment:
-                php:
-                    version: 8.1
-            tests:
-                override:
-                    - php-scrutinizer-run
-                    -
-                        command: XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-clover=coverage81.xml
-                        coverage:
-                            file: coverage81.xml
-                            format: php-clover
-        php82:
-            environment:
-                php:
-                    version: 8.2
-            tests:
-                override:
-                    - php-scrutinizer-run
-                    -
-                        command: XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-clover=coverage82.xml
-                        coverage:
-                            file: coverage82.xml
-                            format: php-clover

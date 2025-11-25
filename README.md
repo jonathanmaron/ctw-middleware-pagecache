@@ -1,8 +1,9 @@
 # Package "ctw/ctw-middleware-pagecache"
 
-[![Build Status](https://scrutinizer-ci.com/g/jonathanmaron/ctw-middleware-pagecache/badges/build.png?b=master)](https://scrutinizer-ci.com/g/jonathanmaron/ctw-middleware-pagecache/build-status/master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/jonathanmaron/ctw-middleware-pagecache/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/jonathanmaron/ctw-middleware-pagecache/?branch=master)
-[![Latest Stable Version](https://poser.pugx.org/ctw/ctw-middleware-pagecache/v/stable)](https://packagist.org/packages/ctw/ctw-middleware-pagecache)
+[![GitHub Actions](https://github.com/jonathanmaron/ctw-middleware-pagecache/actions/workflows/tests.yml/badge.svg)](https://github.com/jonathanmaron/ctw-middleware-pagecache/actions/workflows/tests.yml)
+[![Scrutinizer Build](https://scrutinizer-ci.com/g/jonathanmaron/ctw-middleware-pagecache/badges/build.png?b=master)](https://scrutinizer-ci.com/g/jonathanmaron/ctw-middleware-pagecache/build-status/master)
+[![Scrutinizer Quality](https://scrutinizer-ci.com/g/jonathanmaron/ctw-middleware-pagecache/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/jonathanmaron/ctw-middleware-pagecache/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/jonathanmaron/ctw-middleware-pagecache/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/jonathanmaron/ctw-middleware-pagecache/?branch=master)
 
 :warning: **This component is under heavy development. Do not (yet) use it in a production environment.**
 
