@@ -39,8 +39,8 @@
     "scripts": {
         "ecs": "php vendor/bin/ecs --clear-cache",
         "ecs-fix": "php vendor/bin/ecs --clear-cache --fix",
-        "phpstan": "d=build/phpstan ; rm -fr $d ; mkdir -p $d ; php vendor/bin/phpstan analyse --error-format=raw | tee $d/output.txt",
-        "phpstan-baseline": "php vendor/bin/phpstan analyse --generate-baseline",
+        "phpstan": "bash vendor/ctw/ctw-qa/bin/phpstan.sh",
+        "phpstan-baseline": "bash vendor/ctw/ctw-qa/bin/phpstan-baseline.sh",
         "qa": [
             "@rector",
             "@ecs",
