@@ -7,6 +7,8 @@ use Laminas\Cache\Storage\Adapter\AbstractAdapter as StorageAdapter;
 use Laminas\Cache\Storage\Adapter\Filesystem;
 use Laminas\Cache\Storage\Plugin\ExceptionHandler;
 use Laminas\Cache\Storage\Plugin\Serializer;
+use Laminas\Serializer\AdapterPluginManager;
+use Laminas\ServiceManager\ServiceManager;
 use PHPUnit\Framework\TestCase;
 
 abstract class AbstractCase extends TestCase
@@ -36,7 +38,10 @@ abstract class AbstractCase extends TestCase
 
         $storageAdapter->addPlugin($plugin);
 
-        $plugin = new Serializer();
+        // laminas-cache 4.x: the Serializer plugin requires a serializer
+        // adapter plugin manager (laminas/laminas-serializer) instead of a
+        // no-argument constructor.
+        $plugin = new Serializer(new AdapterPluginManager(new ServiceManager()));
         $storageAdapter->addPlugin($plugin);
 
         return $storageAdapter;
