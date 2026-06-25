@@ -9,10 +9,9 @@ under PHP 8.5.7. Boxes are intentionally left unchecked.
 
 ---
 
-## ✅ Diactoros blocker resolved — ⚠️ laminas-cache 3→4 migration still required
+## ✅ Fully green (diactoros blocker + laminas-cache 3→4 migration done)
 
-> Supersedes the "❌ FAILS" analysis in §1. This is the only package not yet
-> fully green after the blocker fix.
+> Supersedes the "❌ FAILS" analysis in §1.
 
 `composer.json` changes (so `composer update -W` resolves under PHP 8.5):
 
@@ -27,26 +26,26 @@ under PHP 8.5.7. Boxes are intentionally left unchecked.
 
 `composer update -W` is now **green** (rc=0).
 
-- [ ] **Still open — laminas-cache 3→4 API migration (first-party).** Bumping
-  laminas-cache to 4.x is a major upgrade with BC breaks. The test suite now
-  errors:
+- [x] **laminas-cache 3→4 API migration — done (first-party).** laminas-cache 4.x
+  no longer lets the `Serializer` storage plugin be instantiated with `new
+  Serializer()`; it requires a serializer-adapter plugin manager from
+  `laminas/laminas-serializer`. Applied:
+  - Added **`laminas/laminas-serializer: ^3.0`** to `require` (3.3.0; needed at
+    runtime to serialize the cached response array on a Filesystem-backed cache).
+  - `test/AbstractCase.php` now builds the plugin as
+    `new Serializer(new AdapterPluginManager(new ServiceManager()))`.
+  - `ExceptionHandler` still uses its no-arg constructor + `getOptions()
+    ->setThrowExceptions(false)` (unchanged in 4.x).
+  - `src/` needed no changes — it consumes the storage adapter from the container
+    and uses only stable `getItem()`/`setItem()` APIs.
+- [x] **PHPUnit 13:** `phpunit/phpunit` → `^13.0`, `ctw/ctw-qa` → `dev-php85`,
+  phpunit.xml schema → 13.2.
+- [x] **§3 done:** the shared PHPStan `missingType.*` unmatched-ignore is fixed
+  centrally in `ctw/ctw-qa` (`reportUnmatchedIgnoredErrors: false`).
 
-  ```
-  ArgumentCountError: Too few arguments to function
-  Laminas\Cache\Storage\Plugin\Serializer::__construct(), 0 passed ... and exactly 1 expected
-  test/AbstractCase.php:39
-  ```
-
-  In laminas-cache 4.x the storage **plugins can no longer be instantiated
-  directly** (`new Serializer()` / `new ExceptionHandler()`); they take a
-  `Laminas\ServiceManager\PluginManagerInterface` and must be built via the
-  plugin/storage factory. **TODO:** migrate `test/AbstractCase.php` (and audit
-  `src/` for any direct plugin/adapter construction) to the laminas-cache 4.x
-  factory API. This is `step 2` per-package work, independent of the diactoros
-  blocker.
-
-Also residual: the shared PHPStan `missingType.*` unmatched-ignore (§3, owned by
-`ctw/ctw-qa`). Re-tag the `ctw/*` deps to stable before merge.
+**Result:** `phpunit --no-coverage` → **6 tests, 6 assertions, 0 issues** (the
+MISS→serialize→store→retrieve→unserialize→HIT round-trip passes) under PHPUnit
+13.2.1 / PHP 8.5.7. Re-tag the `ctw/*` deps to stable before merge.
 
 > ⚠️ **Largest set of dependency bumps required** — `laminas-diactoros`,
 > `laminas-cache` (+ filesystem adapter) and two `mezzio/*` packages are all
