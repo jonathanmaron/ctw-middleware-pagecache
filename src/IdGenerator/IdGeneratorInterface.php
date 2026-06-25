@@ -9,6 +9,8 @@ interface IdGeneratorInterface
 {
     /**
      * Return a unique ID that represents the request
+     *
+     * @return non-empty-string
      */
     public function generate(ServerRequestInterface $request): string;
 }

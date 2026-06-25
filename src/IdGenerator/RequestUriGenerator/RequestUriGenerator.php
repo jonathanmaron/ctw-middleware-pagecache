@@ -11,6 +11,8 @@ class RequestUriGenerator extends AbstractIdGenerator implements IdGeneratorInte
 {
     /**
      * Generate an ID based on the request's path and query
+     *
+     * @return non-empty-string
      */
     public function generate(ServerRequestInterface $request): string
     {

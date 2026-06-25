@@ -10,6 +10,9 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class IdGeneratorExample extends AbstractIdGenerator implements IdGeneratorInterface
 {
+    /**
+     * @return non-empty-string
+     */
     public function generate(ServerRequestInterface $request): string
     {
         /*

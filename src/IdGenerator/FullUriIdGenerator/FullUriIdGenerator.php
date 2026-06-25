@@ -11,6 +11,8 @@ class FullUriIdGenerator extends AbstractIdGenerator implements IdGeneratorInter
 {
     /**
      * Generate an ID based on the request's host, port, path and query
+     *
+     * @return non-empty-string
      */
     public function generate(ServerRequestInterface $request): string
     {

@@ -17,14 +17,25 @@ abstract class AbstractIdGenerator
 
     /**
      * Return a SHA256 hash for the passed $vars
+     *
+     * @param array<mixed> $vars
+     *
+     * @return non-empty-string
      */
     protected function getHash(array $vars): string
     {
-        $data = implode(
-            '|',
-            array_filter($vars, static fn($value): bool => !in_array($value, [null, '', false], true))
-        );
+        $parts = [];
 
-        return hash('sha256', $data);
+        foreach ($vars as $var) {
+            if (in_array($var, [null, '', false], true)) {
+                continue;
+            }
+
+            if (is_scalar($var) || $var instanceof \Stringable) {
+                $parts[] = (string) $var;
+            }
+        }
+
+        return hash('sha256', implode('|', $parts));
     }
 }
