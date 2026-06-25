@@ -5,8 +5,48 @@
 - **Date:** 2026-06-25
 
 This is a **TODO list** of the changes required for this package to run cleanly
-under PHP 8.5.7. Nothing here has been fixed yet — the fixes happen in a second
-step. Boxes are intentionally left unchecked.
+under PHP 8.5.7. Boxes are intentionally left unchecked.
+
+---
+
+## ✅ Diactoros blocker resolved — ⚠️ laminas-cache 3→4 migration still required
+
+> Supersedes the "❌ FAILS" analysis in §1. This is the only package not yet
+> fully green after the blocker fix.
+
+`composer.json` changes (so `composer update -W` resolves under PHP 8.5):
+
+- [x] `laminas/laminas-diactoros` `^2.11` → **`^3.0`** (3.8.0).
+- [x] `laminas/laminas-cache` `^3.1` → **`^4.3`** (4.3.0 — first cache line that
+  supports PHP 8.5; clears the `SplObjectStorage` deprecations in §2b).
+- [x] `laminas/laminas-cache-storage-adapter-filesystem` `^2.0` → **`^3.2`** (3.2.0).
+- [x] `ctw/ctw-middleware` `^4.0` → **`dev-php85`** — note this also required
+  widening `laminas/laminas-servicemanager` to `^4.5` **in `ctw/ctw-middleware`**
+  (laminas-cache 4.3 requires servicemanager `^4.5`, which the base package's old
+  `^3.12`-only pin made unsatisfiable).
+
+`composer update -W` is now **green** (rc=0).
+
+- [ ] **Still open — laminas-cache 3→4 API migration (first-party).** Bumping
+  laminas-cache to 4.x is a major upgrade with BC breaks. The test suite now
+  errors:
+
+  ```
+  ArgumentCountError: Too few arguments to function
+  Laminas\Cache\Storage\Plugin\Serializer::__construct(), 0 passed ... and exactly 1 expected
+  test/AbstractCase.php:39
+  ```
+
+  In laminas-cache 4.x the storage **plugins can no longer be instantiated
+  directly** (`new Serializer()` / `new ExceptionHandler()`); they take a
+  `Laminas\ServiceManager\PluginManagerInterface` and must be built via the
+  plugin/storage factory. **TODO:** migrate `test/AbstractCase.php` (and audit
+  `src/` for any direct plugin/adapter construction) to the laminas-cache 4.x
+  factory API. This is `step 2` per-package work, independent of the diactoros
+  blocker.
+
+Also residual: the shared PHPStan `missingType.*` unmatched-ignore (§3, owned by
+`ctw/ctw-qa`). Re-tag the `ctw/*` deps to stable before merge.
 
 > ⚠️ **Largest set of dependency bumps required** — `laminas-diactoros`,
 > `laminas-cache` (+ filesystem adapter) and two `mezzio/*` packages are all
