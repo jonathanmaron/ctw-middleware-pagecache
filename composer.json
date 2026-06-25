@@ -4,7 +4,7 @@
     "license": "BSD-3-Clause",
     "type": "library",
     "require": {
-        "php": "^8.3",
+        "php": "^8.5",
         "ctw/ctw-middleware": "dev-php85",
         "laminas/laminas-cache": "^4.3",
         "laminas/laminas-cache-storage-adapter-filesystem": "^3.2",
