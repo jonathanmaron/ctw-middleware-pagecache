@@ -88,6 +88,24 @@ final class IdGeneratorExampleTest extends AbstractCase
     }
 
     /**
+     * Test that generate ignores an attribute value that is neither scalar nor stringable.
+     */
+    public function testGenerateIgnoresNonScalarAttributeValue(): void
+    {
+        $idGenerator = new IdGeneratorExample();
+
+        $withArrayAttribute = $idGenerator->generate(
+            new ServerRequest([], [], new Uri('https://www.example.com/test/'))
+                ->withAttribute('attribute_key', ['not', 'scalar']),
+        );
+        $withoutAttribute = $idGenerator->generate(
+            new ServerRequest([], [], new Uri('https://www.example.com/test/')),
+        );
+
+        self::assertSame($withoutAttribute, $withArrayAttribute);
+    }
+
+    /**
      * Test that the factory builds a generator that hashes a request.
      */
     public function testFactoryBuildsGeneratorThatHashesRequest(): void

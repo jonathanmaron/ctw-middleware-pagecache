@@ -115,6 +115,25 @@ final class PageCacheMiddlewareTest extends AbstractCase
     }
 
     /**
+     * Test that a cache miss writes the serialized response into the storage adapter.
+     */
+    public function testProcessWritesSerializedResponseToStorageOnCacheMiss(): void
+    {
+        $middleware = $this->getInstance(true);
+        $request    = $this->getCacheableRequest('https://www.example.com/write/?v=' . uniqid());
+
+        $middleware->process($request, $this->getHandler());
+
+        $cacheId    = new FullUriIdGenerator()
+            ->generate($request);
+        $serialized = $middleware->getStorageAdapter()
+            ->getItem($cacheId, $success);
+
+        self::assertTrue($success);
+        self::assertIsArray($serialized);
+    }
+
+    /**
      * Test that a second request for the same id returns a hit response from the cache.
      */
     public function testProcessReturnsHitResponseWhenItemIsAlreadyCached(): void
