@@ -1,10 +1,7 @@
 # Package "ctw/ctw-middleware-pagecache"
 
 [![Latest Stable Version](https://poser.pugx.org/ctw/ctw-middleware-pagecache/v/stable)](https://packagist.org/packages/ctw/ctw-middleware-pagecache)
-[![GitHub Actions](https://github.com/jonathanmaron/ctw-middleware-pagecache/actions/workflows/tests.yml/badge.svg)](https://github.com/jonathanmaron/ctw-middleware-pagecache/actions/workflows/tests.yml)
-[![Scrutinizer Build](https://scrutinizer-ci.com/g/jonathanmaron/ctw-middleware-pagecache/badges/build.png?b=master)](https://scrutinizer-ci.com/g/jonathanmaron/ctw-middleware-pagecache/build-status/master)
-[![Scrutinizer Quality](https://scrutinizer-ci.com/g/jonathanmaron/ctw-middleware-pagecache/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/jonathanmaron/ctw-middleware-pagecache/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/jonathanmaron/ctw-middleware-pagecache/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/jonathanmaron/ctw-middleware-pagecache/?branch=master)
+[![GitHub Actions](https://github.com/jonathanmaron/ctw-middleware-pagecache/actions/workflows/ci.yml/badge.svg)](https://github.com/jonathanmaron/ctw-middleware-pagecache/actions/workflows/ci.yml)
 
 PSR-15 middleware providing full page caching for Mezzio applications with configurable caching strategies and cache ID generators.
 
