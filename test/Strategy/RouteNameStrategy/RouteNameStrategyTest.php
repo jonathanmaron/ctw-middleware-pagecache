@@ -50,7 +50,7 @@ final class RouteNameStrategyTest extends AbstractCase
     public function testShouldCacheReturnsFalseWhenAttributeIsNotRouteResult(): void
     {
         $strategy = $this->getStrategy(['home']);
-        $request  = (new ServerRequest([], [], new Uri('https://www.example.com/')))
+        $request  = new ServerRequest([], [], new Uri('https://www.example.com/'))
             ->withAttribute(RouteResult::class, 'not-a-route-result');
 
         self::assertFalse($strategy->shouldCache($request));
@@ -176,7 +176,7 @@ final class RouteNameStrategyTest extends AbstractCase
      */
     private function getRequestWithRouteResult(RouteResult $routeResult): ServerRequestInterface
     {
-        return (new ServerRequest([], [], new Uri('https://www.example.com/')))
+        return new ServerRequest([], [], new Uri('https://www.example.com/'))
             ->withAttribute(RouteResult::class, $routeResult);
     }
 

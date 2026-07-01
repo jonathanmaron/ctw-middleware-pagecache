@@ -50,7 +50,7 @@ final class IdGeneratorExampleTest extends AbstractCase
         $session->method('has')
             ->willReturn(false);
 
-        $request = (new ServerRequest([], [], new Uri('https://www.example.com/test/')))
+        $request = new ServerRequest([], [], new Uri('https://www.example.com/test/'))
             ->withAttribute(SessionMiddleware::SESSION_ATTRIBUTE, $session);
 
         $idGenerator = new IdGeneratorExample();
@@ -74,7 +74,7 @@ final class IdGeneratorExampleTest extends AbstractCase
         $session->method('get')
             ->willReturn('session-value');
 
-        $request = (new ServerRequest([], [], new Uri('https://www.example.com/test/')))
+        $request = new ServerRequest([], [], new Uri('https://www.example.com/test/'))
             ->withAttribute(SessionMiddleware::SESSION_ATTRIBUTE, $session);
 
         $idGenerator = new IdGeneratorExample();
