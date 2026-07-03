@@ -13,6 +13,7 @@ class IdGeneratorExample extends AbstractIdGenerator implements IdGeneratorInter
     /**
      * @return non-empty-string
      */
+    #[\Override]
     public function generate(ServerRequestInterface $request): string
     {
         /*

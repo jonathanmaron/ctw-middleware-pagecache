@@ -14,6 +14,7 @@ class RequestUriGenerator extends AbstractIdGenerator implements IdGeneratorInte
      *
      * @return non-empty-string
      */
+    #[\Override]
     public function generate(ServerRequestInterface $request): string
     {
         $uri = $request->getUri();

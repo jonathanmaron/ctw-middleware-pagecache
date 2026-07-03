@@ -12,6 +12,7 @@ class TestHandler implements RequestHandlerInterface
 {
     final public const string NAME = 'app::test/test';
 
+    #[\Override]
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         return new HtmlResponse('<html></html>');

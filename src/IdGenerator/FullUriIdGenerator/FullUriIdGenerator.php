@@ -14,6 +14,7 @@ class FullUriIdGenerator extends AbstractIdGenerator implements IdGeneratorInter
      *
      * @return non-empty-string
      */
+    #[\Override]
     public function generate(ServerRequestInterface $request): string
     {
         $uri = $request->getUri();

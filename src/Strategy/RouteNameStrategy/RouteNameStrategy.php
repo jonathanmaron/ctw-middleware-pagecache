@@ -10,6 +10,7 @@ use Psr\Http\Message\ServerRequestInterface;
 
 class RouteNameStrategy extends AbstractStrategy implements StrategyInterface
 {
+    #[\Override]
     public function shouldCache(ServerRequestInterface $request): bool
     {
         $routeResult = $request->getAttribute(RouteResult::class);

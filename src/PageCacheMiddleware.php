@@ -10,6 +10,7 @@ use Psr\Http\Server\RequestHandlerInterface;
 
 class PageCacheMiddleware extends AbstractPageCacheMiddleware
 {
+    #[\Override]
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         if (!$this->shouldCache($request)) {
