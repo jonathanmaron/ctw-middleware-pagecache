@@ -1,5 +1,4 @@
 name: CI
-
 on:
     push:
     pull_request:
@@ -12,18 +11,9 @@ jobs:
             fail-fast: false
             matrix:
                 php: [ '8.5' ]
-                dependencies: [ highest, lowest ]
-                include:
-                    # Forward-looking, non-blocking signal against the next PHP.
-                    # This plugin exists to smooth installs on newer PHP, so an
-                    # early-warning leg against the upcoming release fits its purpose.
-                    -   php: '8.6'
-                        dependencies: highest
-                        experimental: true
+                dependencies: [ highest ]
 
         name: PHP ${{ matrix.php }} (${{ matrix.dependencies }})
-
-        continue-on-error: ${{ matrix.experimental || false }}
 
         steps:
             -   name: Checkout code
@@ -33,7 +23,6 @@ jobs:
                 uses: shivammathur/setup-php@v2
                 with:
                     php-version: ${{ matrix.php }}
-                    extensions: fileinfo, libxml, posix, simplexml
                     coverage: xdebug
                     tools: composer:v2
 
