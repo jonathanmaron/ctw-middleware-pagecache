@@ -1,8 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/13.2/phpunit.xsd"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         cacheDirectory=".phpunit.cache"
+         cacheResult="false"
          colors="true"
-         cacheDirectory=".phpunit.cache">
+         columns="100"
+         diffContext="7"
+         shortenArraysForExportThreshold="0"
+         displayDetailsOnAllIssues="true"
+         displayDetailsOnIncompleteTests="true"
+         displayDetailsOnPhpunitDeprecations="true"
+         displayDetailsOnPhpunitNotices="true"
+         displayDetailsOnSkippedTests="true"
+         displayDetailsOnTestsThatTriggerDeprecations="true"
+         displayDetailsOnTestsThatTriggerErrors="true"
+         displayDetailsOnTestsThatTriggerNotices="true"
+         displayDetailsOnTestsThatTriggerWarnings="true"
+         beStrictAboutOutputDuringTests="true"
+         beStrictAboutChangesToGlobalState="true"
+         beStrictAboutCoverageMetadata="true"
+         requireCoverageMetadata="false"
+         reverseDefectList="true"
+         testdox="false"
+         testdoxSummary="false"
+         failOnAllIssues="true"
+>
     <coverage>
         <report>
             <html outputDirectory="build/phpunit"/>
