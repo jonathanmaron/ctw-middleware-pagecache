@@ -11,10 +11,6 @@ use Ctw\Qa\EasyCodingStandard\Config\ECSConfig\DefaultSkip;
 use Symplify\EasyCodingStandard\Config\ECSConfig;
 use Symplify\EasyCodingStandard\Configuration\ECSConfigBuilder;
 
-// Wrapped in an immediately-invoked closure: ECS require()s this file in the
-// scope of its container factory, where the container is held in a variable
-// named $ecsConfig. Building at file scope would clobber it; the closure keeps
-// every local contained.
 return (static function (): ECSConfigBuilder {
     $fileExtensions = new DefaultFileExtensions();
     $indentation    = new DefaultIndentation();
