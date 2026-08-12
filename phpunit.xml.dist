@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         beStrictAboutChangesToGlobalState="true"
+         beStrictAboutCoverageMetadata="true"
+         beStrictAboutOutputDuringTests="true"
          cacheDirectory=".phpunit.cache"
-         recordTestRunHistory="false"
          colors="true"
          columns="100"
          diffContext="7"
-         shortenArraysForExportThreshold="0"
          displayDetailsOnAllIssues="true"
          displayDetailsOnIncompleteTests="true"
          displayDetailsOnPhpunitDeprecations="true"
@@ -16,14 +17,13 @@
          displayDetailsOnTestsThatTriggerErrors="true"
          displayDetailsOnTestsThatTriggerNotices="true"
          displayDetailsOnTestsThatTriggerWarnings="true"
-         beStrictAboutOutputDuringTests="true"
-         beStrictAboutChangesToGlobalState="true"
-         beStrictAboutCoverageMetadata="true"
+         failOnAllIssues="true"
+         recordTestRunHistory="false"
          requireCoverageMetadata="false"
          reverseDefectList="true"
+         shortenArraysForExportThreshold="0"
          testdox="false"
          testdoxSummary="false"
-         failOnAllIssues="true"
 >
     <coverage>
         <report>
