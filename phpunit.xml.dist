@@ -19,11 +19,8 @@
          displayDetailsOnTestsThatTriggerWarnings="true"
          failOnAllIssues="true"
          recordTestRunHistory="false"
-         requireCoverageMetadata="false"
          reverseDefectList="true"
          shortenArraysForExportThreshold="0"
-         testdox="false"
-         testdoxSummary="false"
 >
     <coverage>
         <report>
