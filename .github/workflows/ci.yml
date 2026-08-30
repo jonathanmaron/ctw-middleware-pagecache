@@ -1,47 +1,84 @@
+# Pipeline for ctw/ctw-middleware-pagecache.
+#
+# The jobs themselves live in the php-library workflow, in jonathanmaron/ctw-ci.
+# Everything specific to this repository is below.
+#
+# The triggers are the one part of that workflow that cannot be shared: a
+# reusable workflow may not declare its own `on:`, so the paths that make a
+# change worth a run are written out here instead:
+#
+#   - Pull requests are path-filtered, which is where the volume is. A pull
+#     request touching none of these paths starts no run at all — and GitHub
+#     treats no run as not succeeded, so leave "Require status checks" off, or
+#     add the paths such a pull request touches.
+#   - Pushes to master and tags always run, filtered by nothing. `paths:`
+#     applies to a whole `push` event and cannot be narrowed to branches, so
+#     rather than let it swallow a release tag it is left off the push trigger
+#     entirely. A merge to master is post-merge verification; a tag is a
+#     release.
+#   - A schedule is the drift detector: it reads the dependency graph rather
+#     than the diff, so it is filtered by nothing either. It is also what makes
+#     Composer outdated run, that job being scheduled-only.
+#
+# One deliberate divergence from a pipeline that runs on every push: GitHub
+# cannot express "push, unless a pull request is open for this ref" without
+# duplicating every run, so a branch gets its pipeline when the pull request
+# opens. Use the Actions tab's Run workflow button for an ad-hoc run before
+# then.
+
 name: CI
+
 on:
     push:
+        branches:
+            - master
+        tags:
+            - '**'
     pull_request:
+        paths:
+            - '**/*.php'
+            - '**/*.phtml'
+            - 'composer.json'
+            - 'phpunit.xml.dist'
+            - '.github/workflows/**'
+    schedule:
+        # Weekly, Monday 04:17 UTC. The odd minute keeps it off the hour, where
+        # GitHub queues every cron in the world.
+        - cron: '17 4 * * 1'
+    workflow_dispatch:
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
+
+permissions:
+    contents: read
 
 jobs:
-    tests:
-        runs-on: ubuntu-latest
+    php-library:
+        uses: jonathanmaron/ctw-ci/.github/workflows/php-library.yml@v1
+        with:
+            php_version: '8.5'
+            php_versions: '["8.5"]'
 
-        strategy:
-            fail-fast: false
-            matrix:
-                php: [ '8.5' ]
-                dependencies: [ highest ]
+            # 8.6 is what this library is trying out, not what it
+            # supports: the suite runs there and cannot break the build. When it
+            # is reliably green, move it into php_versions, where it blocks, and
+            # drop this.
+            php_versions_canary: '["8.6"]'
 
-        name: PHP ${{ matrix.php }} (${{ matrix.dependencies }})
-
-        steps:
-            -   name: Checkout code
-                uses: actions/checkout@v5
-
-            -   name: Setup PHP
-                uses: shivammathur/setup-php@v2
-                with:
-                    php-version: ${{ matrix.php }}
-                    coverage: xdebug
-                    tools: composer:v2
-
-            -   name: Validate composer.json
-                run: composer validate --no-check-publish --no-interaction
-
-            -   name: Get Composer cache directory
-                id: composer-cache
-                run: echo "dir=$(composer config cache-files-dir)" >> "$GITHUB_OUTPUT"
-
-            -   name: Cache Composer dependencies
-                uses: actions/cache@v5
-                with:
-                    path: ${{ steps.composer-cache.outputs.dir }}
-                    key: ${{ runner.os }}-php${{ matrix.php }}-${{ matrix.dependencies }}-composer-${{ hashFiles('composer.json') }}
-                    restore-keys: ${{ runner.os }}-php${{ matrix.php }}-${{ matrix.dependencies }}-composer-
-
-            -   name: Install dependencies
-                run: composer update --no-interaction --prefer-dist ${{ matrix.dependencies == 'lowest' && '--prefer-lowest' || '' }}
-
-            -   name: Run tests
-                run: XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-text
+            # Every job is on by default. Uncomment to switch one off.
+            #
+            # phpunit: false
+            # phpunit_lowest_deps: false
+            # phpstan: false
+            # ecs: false
+            # rector: false
+            # composer_validate: false
+            # composer_normalize: false
+            # composer_audit: false
+            # composer_requirements: false
+            # composer_unused: false
+            # composer_outdated: false
+            # backward_compatibility: false
+            # infection: true
