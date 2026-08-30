@@ -74,7 +74,7 @@ final class FullUriIdGeneratorTest extends AbstractCase
     public function testGenerateThrowsRuntimeExceptionWhenPathIsEmpty(): void
     {
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Cannot auto-detect current page identity');
+        $this->expectExceptionMessageIsOrContains('Cannot auto-detect current page identity');
 
         $request     = new ServerRequest([], [], new Uri());
         $idGenerator = new FullUriIdGenerator();
