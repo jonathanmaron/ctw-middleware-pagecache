@@ -61,11 +61,14 @@ jobs:
             php_version: '8.5'
             php_versions: '["8.5"]'
 
-            # 8.6 is what this library is trying out, not what it
-            # supports: the suite runs there and cannot break the build. When it
-            # is reliably green, move it into php_versions, where it blocks, and
-            # drop this.
-            php_versions_canary: '["8.6"]'
+            # No canary for now: 8.6 is deliberately not tested. Where
+            # these libraries reach Laminas the version cannot even be
+            # installed — laminas/laminas-diactoros 3.8.0 declares
+            # php ~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0 — and a job that fails
+            # at composer update reports nothing about the library. Uncomment
+            # once the ecosystem allows 8.6.
+            #
+            # php_versions_canary: '["8.6"]'
 
             # Every job is on by default. Uncomment to switch one off.
             #
