@@ -80,8 +80,6 @@ jobs:
             # composer_validate: false
             # composer_normalize: false
             # composer_audit: false
-            # composer_requirements: false
-            # composer_unused: false
+            # composer_dependencies: false
             # composer_outdated: false
             # backward_compatibility: false
-            # infection: true

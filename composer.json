@@ -41,19 +41,19 @@
         "sort-packages": true
     },
     "scripts": {
-        "composer-unused": "php vendor/bin/composer-unused",
+        "composer-dependency-analyser": "php vendor/bin/composer-dependency-analyser",
         "ecs": "php vendor/bin/ecs --clear-cache",
         "ecs-fix": "php vendor/bin/ecs --clear-cache --fix",
         "phpstan": "bash vendor/ctw/ctw-qa/bin/phpstan.sh",
         "phpstan-baseline": "bash vendor/ctw/ctw-qa/bin/phpstan-baseline.sh",
         "qa": [
-            "@composer-unused",
+            "@composer-dependency-analyser",
             "@rector",
             "@ecs",
             "@phpstan"
         ],
         "qa-fix": [
-            "@composer-unused",
+            "@composer-dependency-analyser",
             "@rector-fix",
             "@ecs-fix",
             "@phpstan"
