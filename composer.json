@@ -60,6 +60,6 @@
         ],
         "rector": "php vendor/bin/rector process --clear-cache --dry-run",
         "rector-fix": "php vendor/bin/rector process --clear-cache",
-        "test": "export XDEBUG_MODE=coverage ; php vendor/bin/phpunit"
+        "test": "export XDEBUG_MODE=coverage ; php -d zend_extension=xdebug.so vendor/bin/phpunit"
     }
 }
